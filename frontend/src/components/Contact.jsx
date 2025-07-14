@@ -20,22 +20,47 @@ const Contact = () => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Mock form submission
-    setTimeout(() => {
+    try {
+      // Using Formspree for form submission
+      const response = await fetch('https://formspree.io/f/xpwallnp', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+          _replyto: formData.email,
+        }),
+      });
+
+      if (response.ok) {
+        toast({
+          title: "Message Sent!",
+          description: "Thank you for your message. I'll get back to you soon.",
+          duration: 5000,
+        });
+        
+        setFormData({
+          name: '',
+          email: '',
+          subject: '',
+          message: ''
+        });
+      } else {
+        throw new Error('Failed to send message');
+      }
+    } catch (error) {
       toast({
-        title: "Message Sent!",
-        description: "Thank you for your message. I'll get back to you soon.",
+        title: "Error",
+        description: "There was an error sending your message. Please try again or contact me directly.",
         duration: 5000,
       });
-      
-      setFormData({
-        name: '',
-        email: '',
-        subject: '',
-        message: ''
-      });
+    } finally {
       setIsSubmitting(false);
-    }, 1000);
+    }
   };
 
   const handleChange = (e) => {

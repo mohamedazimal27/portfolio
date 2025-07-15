@@ -17,7 +17,7 @@ const Hero = () => {
   return (
     <section 
       id="home" 
-      className="relative min-h-screen flex items-center justify-center"
+      className="relative min-h-screen flex items-center justify-center pt-24"
       style={{ backgroundColor: '#0D0D0D' }}
     >
       {/* Clean Dark Background */}

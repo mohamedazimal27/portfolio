@@ -7,7 +7,7 @@ const Skills = () => {
     { title: 'Programming Languages', skills: skills.languages, icon: '💻' },
     { title: 'Automation Platforms', skills: skills.automation, icon: '⚙️' },
     { title: 'AI/ML Technologies', skills: skills.aiml, icon: '🧠' },
-    { title: 'Development Tools', skills: skills.tools, icon: '🛠️' }
+    { title: 'Industrial Systems', skills: skills.industrial, icon: '🏭' }
   ];
 
   return (
@@ -26,7 +26,7 @@ const Skills = () => {
         {/* Skills Grid */}
         <div className="grid md:grid-cols-2 gap-6">
           {skillCategories.map((category, categoryIndex) => (
-            <Card 
+            <Card
               key={categoryIndex}
               className="bg-gray-800/50 border border-gray-700/50 p-4 rounded-lg"
             >
@@ -38,7 +38,7 @@ const Skills = () => {
                   </CardTitle>
                 </div>
               </CardHeader>
-              
+
               <CardContent className="p-0">
                 <ul className="flex flex-wrap gap-2">
                   {category.skills.map((skill, skillIndex) => (

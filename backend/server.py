@@ -9,15 +9,37 @@ from pydantic import BaseModel, Field
 from typing import List
 import uuid
 from datetime import datetime
+import json
 
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
 
-# MongoDB connection
-mongo_url = os.environ['MONGO_URL']
-client = AsyncIOMotorClient(mongo_url)
-db = client[os.environ['DB_NAME']]
+# MongoDB connection (Commented out as mongod is not running)
+# mongo_url = os.environ['MONGO_URL']
+# client = AsyncIOMotorClient(mongo_url)
+# db = client[os.environ['DB_NAME']]
+
+# JSON File Storage Setup
+MESSAGES_FILE = ROOT_DIR / 'messages.json'
+
+def save_message_to_json(msg_dict):
+    if not MESSAGES_FILE.exists():
+        with open(MESSAGES_FILE, 'w') as f:
+            json.dump([], f)
+    
+    with open(MESSAGES_FILE, 'r+') as f:
+        try:
+            data = json.load(f)
+        except json.JSONDecodeError:
+            data = []
+        
+        # Convert datetime to string for JSON serialization
+        msg_dict['timestamp'] = msg_dict['timestamp'].isoformat()
+        data.append(msg_dict)
+        
+        f.seek(0)
+        json.dump(data, f, indent=2)
 
 # Create the main app without a prefix
 app = FastAPI()
@@ -42,15 +64,26 @@ async def root():
 
 @api_router.post("/status", response_model=StatusCheck)
 async def create_status_check(input: StatusCheckCreate):
-    status_dict = input.dict()
-    status_obj = StatusCheck(**status_dict)
-    _ = await db.status_checks.insert_one(status_obj.dict())
-    return status_obj
+    # Mock status check for now
+    return StatusCheck(client_name=input.client_name)
+
+class Message(BaseModel):
+    name: str
+    email: str
+    subject: str
+    message: str
+    timestamp: datetime = Field(default_factory=datetime.utcnow)
 
 @api_router.get("/status", response_model=List[StatusCheck])
 async def get_status_checks():
-    status_checks = await db.status_checks.find().to_list(1000)
-    return [StatusCheck(**status_check) for status_check in status_checks]
+    return []
+
+@api_router.post("/contact", response_model=Message)
+async def create_message(input: Message):
+    msg_dict = input.dict()
+    # Save to JSON file instead of MongoDB
+    save_message_to_json(msg_dict)
+    return input
 
 # Include the router in the main app
 app.include_router(api_router)
@@ -60,6 +93,7 @@ app.add_middleware(
     allow_credentials=True,
     allow_origins=[
         "http://localhost:3000",
+        "http://localhost:3001",
         "https://mohamedazimal.vercel.app"
     ],
     allow_methods=["*"],

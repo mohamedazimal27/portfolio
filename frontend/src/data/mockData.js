@@ -2,12 +2,12 @@
 
 export const personalInfo = {
   name: "Mohamed Azimal Azimydeen",
-  jobTitle: "AI Workflow Developer | Automation & Control Systems Engineer",
-  tagline: "Bridging Industrial Control with AI Automation",
+  jobTitle: "AI Automation & Control Systems Engineer",
+  tagline: "Control Engineer turned AI Automation Developer",
   email: "mohamedazimal27@gmail.com",
   phone: "+65 8921 3585",
   location: "Singapore",
-  linkedin: "https://linkedin.com/in/mohamed-azimal-azimydeen-86a38278",
+  linkedin: "https://www.linkedin.com/in/mohamed-azimal-azimydeen-86a38278",
   github: "https://github.com/mohamedazimal27",
   heroImage: "https://images.unsplash.com/photo-1652105425180-3cc628d303cf"
 };
@@ -15,101 +15,147 @@ export const personalInfo = {
 export const aboutMe = {
   title: "About Me",
   content: [
-    "With over 7 years of experience in industrial automation, I have successfully transitioned into the exciting world of AI automation and workflow development. My unique background combines deep understanding of industrial control systems with cutting-edge artificial intelligence technologies.",
-    "I specialize in creating intelligent automation solutions using platforms like n8n, OpenAI, and TensorFlow Lite. My experience spans from PLC programming and HMI development to building sophisticated AI-powered applications and voice agents.",
-    "My passion lies in bridging the gap between traditional industrial systems and modern AI capabilities, creating solutions that are both robust and innovative. I'm particularly focused on developing AI workflows that can transform business processes and enhance operational efficiency."
+    "Control Engineer turned AI Automation Developer with 7 years of experience in system reliability, logic design, and process optimization. Expert in building secure, self-healing workflows using Python, n8n, and LLMs.",
+    "Specializes in translating complex business requirements into fault-tolerant automations, bridging the gap between industrial rigor and modern AI capabilities. Proven track record of reducing manual operational load by 90% through intelligent system architecture."
   ],
   skills: [
-    "7+ years in industrial automation",
-    "AI workflow development with n8n",
-    "OpenAI API integration",
-    "TensorFlow Lite mobile deployment",
-    "PLC & HMI programming",
-    "Voice agent development"
+    "Automation Tools: n8n, Google Sheets, Apps Script",
+    "Programming: Python, JavaScript, C#, C++",
+    "AI & LLMs: RAG Pipelines (LangChain, ChromaDB), OpenAI API",
+    "Agentic Workflows: Prompt Engineering, Vector Search, Local LLMs",
+    "Integrations: REST APIs, Webhooks, Google APIs",
+    "Industrial Systems: TwinCAT 3, Allen-Bradley, Rockwell PLC"
   ]
 };
+
+export const experience = [
+  {
+    id: 1,
+    role: "Senior Software Engineer",
+    company: "Sys-Mac Automation Engineering Pte Ltd",
+    location: "Singapore",
+    period: "May 2024 - Oct 2025",
+    description: [
+      "Integrated industrial control systems with cloud APIs and Google Sheets.",
+      "Provided real-time automation support for machine deployments."
+    ]
+  },
+  {
+    id: 2,
+    role: "PLC Programmer",
+    company: "PBA Group – Robotics & Automation",
+    location: "Singapore",
+    period: "Aug 2021 – May 2024",
+    description: [
+      "Co-authored, tested, and optimized PLC code for an automated production line, consistently maintaining a rejection rate of < 2%, while ensuring compliance with all applicable safety requirements.",
+      "Improved data transfer efficiency by 30% during Site Acceptance Testing for a $2M NPD project."
+    ]
+  },
+  {
+    id: 3,
+    role: "Software Engineer",
+    company: "Shimano Singapore Pte Ltd",
+    location: "Singapore",
+    period: "Sep 2020 – Aug 2021",
+    description: [
+      "Developed PLC, Robot, HMI programs; raised OEE to 85% from 65% in 3 automation cells",
+      "Standardized data collection for 30 OT systems, utilized AGV and AMR robots to save 35% storage space"
+    ]
+  },
+  {
+    id: 4,
+    role: "Software Engineer",
+    company: "Sys-Mac Automation Engineering Pte Ltd",
+    location: "Singapore",
+    period: "Jun 2019 - Sep 2020",
+    description: [
+      "Formulated logic for PLC, PC, and Robotics to drive Special Purpose Machines (SPM) installation at the customer's site within stipulated timelines."
+    ]
+  },
+  {
+    id: 5,
+    role: "Robot Application Engineer",
+    company: "FANUC India Pvt Ltd",
+    location: "India",
+    period: "Dec 2016 - Feb 2019",
+    description: [
+      "Responsible for programming Handling, Welding and Vision robotics application.",
+      "Cycle time and Process optimisation."
+    ]
+  }
+];
 
 export const services = [
   {
     id: 1,
-    title: "AI Workflow Automation",
-    description: "Design and implement intelligent automation workflows using n8n, OpenAI, and custom AI models to streamline business processes.",
+    title: "AI Automation Workflows",
+    description: "Design and deploy self-healing workflows using n8n and Python to automate complex business logic and reduce manual load.",
     icon: "🤖",
-    technologies: ["n8n", "OpenAI API", "LangChain", "Webhooks"]
+    technologies: ["n8n", "Python", "Webhooks", "APIs"]
   },
   {
     id: 2,
-    title: "PLC & HMI Integration",
-    description: "Develop robust industrial control systems with seamless integration between PLCs, HMIs, and modern AI capabilities.",
-    icon: "⚙️",
-    technologies: ["TwinCAT", "Weintek HMI", "Rockwell PLC", "SCADA"]
+    title: "RAG & Document Intelligence",
+    description: "Build secure, production-grade RAG systems for Document Q&A with strict user isolation and context-aware responses.",
+    icon: "📄",
+    technologies: ["LangChain", "ChromaDB", "OpenAI", "FastAPI"]
   },
   {
     id: 3,
-    title: "AI-powered Mobile Apps",
-    description: "Create intelligent mobile applications with on-device AI capabilities for real-time processing and analysis.",
-    icon: "📱",
-    technologies: ["Flutter", "TensorFlow Lite", "Firebase", "OpenCV"]
+    title: "Voice AI Agents",
+    description: "Create conversational voice AI agents for booking, scheduling, and customer support with real-time data integration.",
+    icon: "🎙️",
+    technologies: ["Retell AI", "Make.com", "Airtable"]
   },
   {
     id: 4,
-    title: "API Integration & Automation Tools",
-    description: "Build comprehensive automation solutions that connect various APIs and services for seamless data flow and process optimization.",
-    icon: "🔗",
-    technologies: ["REST APIs", "Zapier", "Make.com", "Custom Integrations"]
+    title: "Industrial Control Systems",
+    description: "Bridge the gap between OT and IT by integrating PLCs/HMIs with modern cloud APIs and data pipelines.",
+    icon: "🏭",
+    technologies: ["TwinCAT 3", "Allen-Bradley", "SCADA", "IoT"]
   }
 ];
 
 export const portfolioProjects = [
   {
     id: 1,
-    title: "Retell AI Voice Agent – Hair Salon Bot",
-    description: "Built an intelligent voice agent for hair salon appointment automation using Retell AI integrated with n8n workflows. The system handles appointment scheduling, customer inquiries, and booking confirmations through natural voice interactions.",
-    image: "https://images.unsplash.com/photo-1545063328-c8e3faffa16f",
-    technologies: ["Retell AI", "n8n", "Voice Processing", "Appointment API"],
-    liveDemo: "#",
+    title: "DocuMind – RAG Document Q&A",
+    description: "Engineered a production-grade RAG system with strict user isolation (JWT auth + vector metadata filtering). Implemented ingestion, embeddings, and context-aware LLM responses.",
+    image: "https://images.unsplash.com/photo-1544396821-4dd40b938ad3?q=80&w=2073&auto=format&fit=crop",
+    technologies: ["Python", "FastAPI", "LangChain", "ChromaDB"],
+    liveDemo: "https://github.com/mohamedazimal27/rag_docmind", // User provided Github as main link, verifying redirection
+    github: "https://github.com/mohamedazimal27/rag_docmind",
+    category: "RAG / AI"
+  },
+  {
+    id: 2,
+    title: "AI Voice Agent for Salon",
+    description: "Designed a conversational voice AI agent handling appointment booking, rescheduling, and FAQs. Integrated real-time availability via Airtable and human hand-off.",
+    image: "https://images.unsplash.com/photo-1560066984-138dadb4c035?q=80&w=1974&auto=format&fit=crop",
+    technologies: ["Retell AI", "Make.com", "Airtable"],
+    liveDemo: "https://www.loom.com/share/0bb9e7eb21b4426ba9ba18f689d9a495",
     github: "#",
     category: "Voice AI"
   },
   {
-    id: 2,
-    title: "Multi-Agent Blogging AI",
-    description: "Developed a sophisticated multi-agent system for automated blog content creation using n8n, LangChain, and OpenAI. The system researches topics, generates content, and publishes directly to WordPress with SEO optimization.",
-    image: "https://images.pexels.com/photos/16053029/pexels-photo-16053029.jpeg",
-    technologies: ["n8n", "LangChain", "OpenAI", "Google Search API", "WordPress API"],
-    liveDemo: "#",
-    github: "#",
-    category: "Content AI"
-  },
-  {
     id: 3,
-    title: "YouTube Horror Narration Bot",
-    description: "Created an automated system for generating horror narration videos with AI-generated scripts, text-to-speech conversion, and FFmpeg audio processing for YouTube content creation.",
-    image: "https://images.pexels.com/photos/8728559/pexels-photo-8728559.jpeg",
-    technologies: ["AI Text Generation", "TTS", "FFmpeg", "YouTube API"],
-    liveDemo: "#",
+    title: "Lead Generation from Google Maps",
+    description: "Built an end-to-end lead automation pipeline scraping businesses from Google Maps, enriching data with email extraction, and applying AI lead scoring.",
+    image: "https://images.unsplash.com/photo-1557200130-4b7add4e229f?q=80&w=2070&auto=format&fit=crop",
+    technologies: ["n8n", "Apify", "Google Maps", "OpenAI"],
+    liveDemo: "https://www.loom.com/share/7cf80822d3f74209b8d263f53ca3d8eb",
     github: "#",
-    category: "Video AI"
+    category: "Automation"
   },
   {
     id: 4,
-    title: "Quranic Motivation Video Generator",
-    description: "Built an automated video generation system using n8n workflows, Quran API integration, and text-to-speech technology to create inspirational Islamic content with professional video editing.",
-    image: "https://images.pexels.com/photos/7789851/pexels-photo-7789851.jpeg",
-    technologies: ["n8n", "Quran API", "TTS", "Video Automation"],
-    liveDemo: "#",
-    github: "#",
-    category: "Video AI"
-  },
-  {
-    id: 5,
-    title: "AI Android Apps",
-    description: "Developed mobile applications for skin cancer detection and age/gender estimation using TensorFlow Lite and Flutter, providing real-time AI analysis with on-device processing for privacy and speed.",
-    image: "https://images.unsplash.com/photo-1659035260002-11d486d6e9f5",
-    technologies: ["TensorFlow Lite", "Flutter", "OpenCV", "Mobile AI"],
-    liveDemo: "#",
-    github: "#",
-    category: "Mobile AI"
+    title: "YouTube Automation Pipeline",
+    description: "Fully automated pipeline to generate scripts, narrations, thumbnails, and subtitles using AI. Orchestrated multi-step workflows with Whisper and FFmpeg.",
+    image: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=1974&auto=format&fit=crop",
+    technologies: ["n8n", "OpenAI", "FFmpeg", "YouTube API"],
+    liveDemo: "https://github.com/mohamedazimal27/n8n-youtube-automation",
+    github: "https://github.com/mohamedazimal27/n8n-youtube-automation",
+    category: "Automation"
   }
 ];
 
@@ -118,92 +164,44 @@ export const skills = {
     { name: "Python", level: 95 },
     { name: "JavaScript", level: 90 },
     { name: "C++", level: 85 },
-    { name: "C#", level: 80 },
-    { name: "Apps Script", level: 75 }
+    { name: "C#", level: 80 }
   ],
   automation: [
     { name: "n8n", level: 95 },
-    { name: "Make.com", level: 85 },
-    { name: "Zapier", level: 80 },
-    { name: "TwinCAT", level: 90 },
-    { name: "Rockwell PLC", level: 85 }
+    { name: "Google Sheets", level: 90 },
+    { name: "Apps Script", level: 85 },
+    { name: "Apify", level: 85 }
   ],
   aiml: [
-    { name: "OpenAI API", level: 95 },
-    { name: "TensorFlow Lite", level: 85 },
     { name: "LangChain", level: 90 },
-    { name: "Computer Vision", level: 80 },
-    { name: "NLP", level: 85 }
+    { name: "ChromaDB", level: 85 },
+    { name: "OpenAI API", level: 95 },
+    { name: "Prompt Engineering", level: 90 }
   ],
-  tools: [
-    { name: "Git", level: 90 },
-    { name: "Docker", level: 85 },
-    { name: "VS Code", level: 95 },
-    { name: "Firebase", level: 80 },
-    { name: "MongoDB", level: 85 }
+  industrial: [
+    { name: "TwinCAT 3", level: 90 },
+    { name: "Allen-Bradley", level: 85 },
+    { name: "SCADA", level: 80 },
+    { name: "Robot Programming", level: 85 }
   ]
 };
 
 export const blogPosts = [
   {
     id: 1,
-    title: "Transitioning from Industrial Automation to AI: My Journey",
-    excerpt: "How I leveraged my 7+ years in industrial automation to build a career in AI workflow development and the key lessons learned along the way.",
-    date: "2024-01-15",
-    readTime: "8 min read",
+    title: "Transitioning from Industrial Automation to AI",
+    excerpt: "How I leveraged 7+ years in industrial control systems to master AI workflow development.",
+    date: "2024-11-15",
+    readTime: "5 min read",
     category: "Career",
-    image: "https://images.unsplash.com/photo-1652105425180-3cc628d303cf"
-  },
-  {
-    id: 2,
-    title: "Building Voice Agents with Retell AI and n8n",
-    excerpt: "A comprehensive guide to creating intelligent voice agents for business automation using Retell AI integrated with n8n workflows.",
-    date: "2024-01-10",
-    readTime: "12 min read",
-    category: "AI Development",
-    image: "https://images.pexels.com/photos/8728559/pexels-photo-8728559.jpeg"
-  },
-  {
-    id: 3,
-    title: "The Future of Industrial Automation: AI Integration",
-    excerpt: "Exploring how artificial intelligence is transforming traditional industrial control systems and what this means for the future of manufacturing.",
-    date: "2024-01-05",
-    readTime: "10 min read",
-    category: "Industry Insights",
-    image: "https://images.pexels.com/photos/16053029/pexels-photo-16053029.jpeg"
+    image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e"
   }
-];
-
-export const testimonials = [
-  {
-    id: 1,
-    name: "Sarah Johnson",
-    role: "Operations Manager",
-    company: "TechFlow Solutions",
-    content: "Mohamed's expertise in bridging industrial automation with AI has been invaluable. His n8n workflows have transformed our operational efficiency by 40%.",
-    avatar: "https://images.unsplash.com/photo-1494790108755-2616b9a4a3d5"
-  },
-  {
-    id: 2,
-    name: "David Chen",
-    role: "CTO",
-    company: "AutomateAI",
-    content: "Working with Mohamed on our voice agent project was exceptional. His technical depth and innovative approach delivered results beyond our expectations.",
-    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d"
-  },
-  {
-    id: 3,
-    name: "Lisa Rodriguez",
-    role: "Product Manager",
-    company: "InnovateNow",
-    content: "Mohamed's ability to integrate complex AI systems with existing infrastructure is remarkable. He delivered a robust solution that scaled perfectly.",
-    avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80"
-  }
+  // Added a placeholder, as the resume doesn't have specific blog posts, but the section exists in UI.
 ];
 
 export const contactInfo = {
   email: "mohamedazimal27@gmail.com",
   phone: "+65 8921 3585",
   location: "Singapore",
-  availability: "Available for freelance and full-time opportunities"
+  availability: "Available for opportunities"
 };

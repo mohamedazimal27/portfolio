@@ -19,10 +19,10 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     try {
-      // Using Formspree for form submission
-      const response = await fetch('https://formspree.io/f/mwpqkkeb', {
+      // Using local backend
+      const response = await fetch('http://localhost:8000/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -31,8 +31,7 @@ const Contact = () => {
           name: formData.name,
           email: formData.email,
           subject: formData.subject,
-          message: formData.message,
-          _replyto: formData.email,
+          message: formData.message
         }),
       });
 
@@ -42,7 +41,7 @@ const Contact = () => {
           description: "Thank you for your message. I'll get back to you soon.",
           duration: 5000,
         });
-        
+
         setFormData({
           name: '',
           email: '',
@@ -111,20 +110,20 @@ const Contact = () => {
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
                     <label htmlFor="name" className="sr-only">Name</label>
-                    <Input id="name" name="name" type="text" value={formData.name} onChange={handleChange} placeholder="Name" required className="text-sm bg-gray-700/50 text-white border-gray-600/50 placeholder-gray-400"/>
+                    <Input id="name" name="name" type="text" value={formData.name} onChange={handleChange} placeholder="Name" required className="text-sm bg-gray-700/50 text-white border-gray-600/50 placeholder-gray-400" />
                   </div>
                   <div>
                     <label htmlFor="email" className="sr-only">Email</label>
-                    <Input id="email" name="email" type="email" value={formData.email} onChange={handleChange} placeholder="Email" required className="text-sm bg-gray-700/50 text-white border-gray-600/50 placeholder-gray-400"/>
+                    <Input id="email" name="email" type="email" value={formData.email} onChange={handleChange} placeholder="Email" required className="text-sm bg-gray-700/50 text-white border-gray-600/50 placeholder-gray-400" />
                   </div>
                 </div>
                 <div>
                   <label htmlFor="subject" className="sr-only">Subject</label>
-                  <Input id="subject" name="subject" type="text" value={formData.subject} onChange={handleChange} placeholder="Subject" required className="text-sm bg-gray-700/50 text-white border-gray-600/50 placeholder-gray-400"/>
+                  <Input id="subject" name="subject" type="text" value={formData.subject} onChange={handleChange} placeholder="Subject" required className="text-sm bg-gray-700/50 text-white border-gray-600/50 placeholder-gray-400" />
                 </div>
                 <div>
                   <label htmlFor="message" className="sr-only">Message</label>
-                  <Textarea id="message" name="message" value={formData.message} onChange={handleChange} placeholder="Your message..." rows={4} required className="text-sm bg-gray-700/50 text-white border-gray-600/50 placeholder-gray-400"/>
+                  <Textarea id="message" name="message" value={formData.message} onChange={handleChange} placeholder="Your message..." rows={4} required className="text-sm bg-gray-700/50 text-white border-gray-600/50 placeholder-gray-400" />
                 </div>
                 <Button
                   type="submit"

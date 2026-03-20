@@ -1,103 +1,126 @@
-import React, { useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
-import { Badge } from './ui/badge';
-import { Button } from './ui/button';
+import React, { useState, useEffect, useRef } from 'react';
 import { portfolioProjects } from '../data/mockData';
 
 const Portfolio = () => {
   const [selectedCategory, setSelectedCategory] = useState('All');
+  const sectionRef = useRef(null);
 
-  const categories = ['All', 'Voice AI', 'Content AI', 'Video AI', 'Mobile AI'];
+  const categories = ['All', ...new Set(portfolioProjects.map(p => p.category))];
 
   const filteredProjects = selectedCategory === 'All'
     ? portfolioProjects
     : portfolioProjects.filter(project => project.category === selectedCategory);
 
-  return (
-    <section id="portfolio" className="py-20 bg-background relative">
-      {/* Subtle Grid Background */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.querySelectorAll('.reveal').forEach((el, i) => {
+              el.style.animationDelay = `${i * 0.1}s`;
+              el.classList.add('animate-in');
+            });
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
 
-      <div className="container mx-auto px-4 max-w-screen-lg relative z-10">
-        {/* Section Header */}
-        <div className="text-center mb-12">
-          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-            My Work
-          </h2>
-          <p className="text-base text-gray-400 max-w-xl mx-auto">
-            A selection of projects that showcase my skills in AI and automation.
-          </p>
+  return (
+    <section id="portfolio" ref={sectionRef} className="relative py-24 lg:py-32 border-t border-border">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        {/* Section Label */}
+        <div className="reveal flex items-center gap-4 mb-16">
+          <span className="font-mono text-xs uppercase tracking-[0.3em] text-primary">04</span>
+          <div className="circuit-line flex-1 max-w-[100px]" />
+          <span className="font-mono text-xs uppercase tracking-[0.3em] text-muted-foreground">Portfolio</span>
         </div>
 
-        {/* Category Filter */}
-        <div className="flex flex-wrap justify-center gap-2 mb-10">
+        <div className="reveal flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4 mb-12">
+          <h2 className="font-display text-3xl lg:text-5xl font-bold text-foreground tracking-tight">
+            Selected <span className="text-primary">Works</span>
+          </h2>
+        </div>
+
+        {/* Category Filters */}
+        <div className="reveal flex flex-wrap gap-2 mb-12">
           {categories.map((category) => (
             <button
               key={category}
               onClick={() => setSelectedCategory(category)}
-              className={`px-4 py-2 text-sm rounded-full font-medium transition-all duration-300 ${selectedCategory === category
-                  ? 'bg-gradient-to-r from-indigo-600 to-violet-600 text-white shadow-md'
-                  : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
-                }`}
+              className={`font-mono text-xs uppercase tracking-wider px-4 py-2 border transition-all duration-300 cursor-pointer ${
+                selectedCategory === category
+                  ? 'bg-primary text-primary-foreground border-primary'
+                  : 'border-border text-muted-foreground hover:border-primary/40 hover:text-foreground'
+              }`}
             >
               {category}
             </button>
           ))}
         </div>
 
-        {/* Projects Grid */}
-        <div className="grid md:grid-cols-2 gap-6">
+        {/* Project Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
           {filteredProjects.map((project) => (
-            <Card
+            <div
               key={project.id}
-              className="group bg-gray-800/50 border border-gray-700/50 shadow-sm hover:shadow-lg transition-all duration-300 rounded-lg overflow-hidden"
+              className="reveal group relative bg-card border border-border overflow-hidden hover:border-primary/40 transition-all duration-500 cursor-pointer"
+              onClick={() => window.open(project.liveDemo || project.github, '_blank')}
             >
-              <div className="relative overflow-hidden h-40">
+              {/* Image */}
+              <div className="relative h-48 lg:h-56 overflow-hidden">
                 <img
                   src={project.image}
                   alt={project.title}
-                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                  className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
                 />
-                <div className="absolute inset-0 bg-black/20"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-[hsl(220,20%,7%)] via-transparent to-transparent" />
+
+                {/* Category Badge */}
+                <div className="absolute top-4 left-4">
+                  <span className="font-mono text-[10px] uppercase tracking-wider text-primary bg-background/80 backdrop-blur-sm border border-primary/20 px-3 py-1">
+                    {project.category}
+                  </span>
+                </div>
+
+                {/* Arrow */}
+                <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                  <div className="w-10 h-10 border border-primary/40 flex items-center justify-center bg-background/50 backdrop-blur-sm">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-primary -rotate-45 group-hover:rotate-0 transition-transform duration-500">
+                      <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                  </div>
+                </div>
               </div>
 
-              <CardContent className="p-4 space-y-3">
-                <CardTitle className="text-lg font-semibold text-white line-clamp-1">
+              {/* Content */}
+              <div className="p-6 lg:p-8">
+                <h3 className="font-display text-xl lg:text-2xl font-bold text-foreground group-hover:text-primary transition-colors duration-300 mb-3">
                   {project.title}
-                </CardTitle>
-                <p className="text-sm text-gray-400 leading-relaxed line-clamp-2 h-10">
+                </h3>
+                <p className="font-mono text-sm text-muted-foreground leading-relaxed mb-6 line-clamp-2">
                   {project.description}
                 </p>
-                <div className="flex flex-wrap gap-2 pt-1">
-                  {project.technologies.map((tech, techIndex) => (
-                    <Badge
-                      key={techIndex}
-                      variant="secondary"
-                      className="text-xs bg-gray-700/50 text-gray-300 border-gray-600/50"
+
+                {/* Tech Tags */}
+                <div className="flex flex-wrap gap-2">
+                  {project.technologies.map((tech) => (
+                    <span
+                      key={tech}
+                      className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground/70 border border-border px-3 py-1 group-hover:border-primary/20 transition-colors duration-300"
                     >
                       {tech}
-                    </Badge>
+                    </span>
                   ))}
                 </div>
-                <div className="flex space-x-3 pt-2">
-                  <Button
-                    size="sm"
-                    className="text-xs h-8"
-                    onClick={() => window.open(project.liveDemo, '_blank')}
-                  >
-                    Live Demo
-                  </Button>
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    className="text-xs h-8 border-gray-600 text-gray-300 hover:bg-gray-700 hover:text-white"
-                    onClick={() => window.open(project.github, '_blank')}
-                  >
-                    GitHub
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
+              </div>
+
+              {/* Bottom accent line */}
+              <div className="absolute bottom-0 left-0 w-0 h-[2px] bg-primary group-hover:w-full transition-all duration-700" />
+            </div>
           ))}
         </div>
       </div>

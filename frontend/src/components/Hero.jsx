@@ -1,89 +1,192 @@
-import React from 'react';
-import { Button } from './ui/button';
+import React, { useEffect, useRef } from 'react';
 import { personalInfo } from '../data/mockData';
 
 const Hero = () => {
+  const canvasRef = useRef(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let animationId;
+    let particles = [];
+
+    const resize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+    resize();
+    window.addEventListener('resize', resize);
+
+    // Create particles
+    const particleCount = Math.min(80, Math.floor(window.innerWidth / 15));
+    for (let i = 0; i < particleCount; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: (Math.random() - 0.5) * 0.3,
+        size: Math.random() * 2 + 0.5,
+      });
+    }
+
+    const draw = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Draw connections
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 150) {
+            ctx.beginPath();
+            ctx.strokeStyle = `hsla(172, 100%, 50%, ${0.08 * (1 - dist / 150)})`;
+            ctx.lineWidth = 0.5;
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.stroke();
+          }
+        }
+      }
+
+      // Draw & update particles
+      particles.forEach(p => {
+        ctx.beginPath();
+        ctx.fillStyle = `hsla(172, 100%, 50%, 0.4)`;
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fill();
+
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+        if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+      });
+
+      animationId = requestAnimationFrame(draw);
+    };
+    draw();
+
+    return () => {
+      cancelAnimationFrame(animationId);
+      window.removeEventListener('resize', resize);
+    };
+  }, []);
+
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      const offsetTop = element.offsetTop - 80;
-      window.scrollTo({
-        top: offsetTop,
-        behavior: 'smooth'
-      });
+      window.scrollTo({ top: element.offsetTop - 80, behavior: 'smooth' });
     }
   };
 
   return (
-    <section 
-      id="home" 
-      className="relative w-full mx-auto pt-32 pb-20"
-      style={{ backgroundColor: '#0D0D0D' }}
-    >
-      {/* Subtle ambient lighting effects */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-violet-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
-      </div>
+    <section id="home" className="relative w-full min-h-screen flex items-center overflow-hidden">
+      {/* Particle Canvas */}
+      <canvas
+        ref={canvasRef}
+        className="absolute inset-0 z-0"
+        style={{ pointerEvents: 'none' }}
+      />
+
+      {/* Gradient Overlays */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background z-[1]" />
+      <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-background to-transparent z-[1]" />
 
       {/* Content */}
-      <div className="relative z-10 text-center px-4 max-w-screen-md mx-auto">
-        <div className="space-y-6">
-          {/* Name with Animation */}
-          <h1 className="text-4xl sm:text-5xl font-bold leading-tight font-poppins text-white">
-            <span className="bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent">
-              {personalInfo.name}
+      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 w-full py-32">
+        <div className="max-w-4xl">
+          {/* Status Badge */}
+          <div className="animate-in animate-delay-1 flex items-center gap-3 mb-10">
+            <span className="relative flex h-2.5 w-2.5">
+              <span className="animate-ping absolute inline-flex h-full w-full bg-primary opacity-75" />
+              <span className="relative inline-flex h-2.5 w-2.5 bg-primary" />
             </span>
-          </h1>
-
-          {/* Job Title & Tagline */}
-          <div className="space-y-2">
-            <h2 className="text-xl sm:text-2xl font-semibold font-inter text-white">
-              {personalInfo.jobTitle}
-            </h2>
-            <p className="text-lg max-w-2xl mx-auto leading-relaxed font-inter text-gray-400">
-              {personalInfo.tagline}
-            </p>
+            <span className="font-mono text-xs uppercase tracking-[0.2em] text-primary">
+              Available for Work
+            </span>
           </div>
+
+          {/* Name Display - Elegant Gradient */}
+          <div className="animate-in animate-delay-2 mb-6 tracking-tight relative z-10">
+            <h1 className="font-display font-medium text-5xl sm:text-6xl md:text-7xl lg:text-[7rem] leading-[1.05] flex flex-col">
+              <span className="text-foreground">
+                Mohamed
+              </span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-primary to-accent-2 drop-shadow-[0_0_15px_rgba(0,255,213,0.3)] mt-2">
+                Azimal
+              </span>
+            </h1>
+          </div>
+
+          {/* Job Title - Sleek Tech Badge */}
+          <div className="animate-in animate-delay-3 mb-10 relative z-10">
+            <h2 className="flex items-center gap-4 font-mono text-xs sm:text-sm md:text-base uppercase tracking-[0.2em] text-muted-foreground/90">
+              <span className="w-8 sm:w-12 h-[1px] bg-gradient-to-r from-primary to-transparent" />
+              <span className="text-foreground/80 font-semibold drop-shadow-[0_0_8px_rgba(0,255,213,0.2)]">AI Automation Architect</span>
+              <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-sm bg-primary/20 border border-primary/50 animate-pulse ml-1" />
+            </h2>
+          </div>
+
+          {/* Tagline */}
+          <p className="animate-in animate-delay-3 font-mono text-base sm:text-lg text-muted-foreground max-w-xl leading-relaxed mb-4">
+            {personalInfo.tagline}
+          </p>
+
+          {/* Location */}
+          <p className="animate-in animate-delay-3 font-mono text-sm text-muted-foreground/60 flex items-center gap-2 mb-12">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-primary/50">
+              <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+              <circle cx="12" cy="10" r="3" />
+            </svg>
+            {personalInfo.location} · Remote Worldwide
+          </p>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
-            <Button 
+          <div className="animate-in animate-delay-4 flex flex-wrap gap-4">
+            <button
               onClick={() => scrollToSection('portfolio')}
-              className="bg-gradient-to-r from-indigo-600 to-violet-600 text-white font-semibold px-6 py-3 rounded-full shadow-lg hover:shadow-indigo-500/50 transition-all duration-300 hover:scale-105"
+              className="group relative font-mono text-sm uppercase tracking-wider bg-primary text-primary-foreground px-8 py-4 hover:shadow-[0_0_30px_hsl(172_100%_50%/0.3)] transition-all duration-300 cursor-pointer"
             >
-              View My Work
-            </Button>
-            
-            <Button 
+              View Works
+              <span className="inline-block ml-2 translate-x-0 group-hover:translate-x-1 transition-transform duration-300">→</span>
+            </button>
+            <button
               onClick={() => scrollToSection('contact')}
-              className="bg-gradient-to-r from-indigo-600 to-violet-600 text-white font-semibold px-6 py-3 rounded-full shadow-lg hover:shadow-indigo-500/50 transition-all duration-300 hover:scale-105"
+              className="font-mono text-sm uppercase tracking-wider border border-border text-foreground px-8 py-4 hover:border-primary/50 hover:text-primary transition-all duration-300 cursor-pointer"
             >
-              Get In Touch
-            </Button>
-          </div>
-
-          {/* Social Links */}
-          <div className="flex justify-center space-x-6 pt-6">
-            <a
-              href={personalInfo.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-500 hover:text-indigo-400 transition-colors duration-300"
-            >
-              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-            </a>
-            
-            <a
-              href={personalInfo.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-500 hover:text-violet-400 transition-colors duration-300"
-            >
-              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-            </a>
+              Contact Me
+            </button>
           </div>
         </div>
+
+        {/* Decorative Corner Element */}
+        <div className="hidden lg:block absolute right-8 top-1/2 -translate-y-1/2">
+          <div className="flex flex-col items-end gap-6">
+            {['n8n', 'LangChain', 'Python', 'FastAPI'].map((tech, i) => (
+              <span
+                key={tech}
+                className="animate-in font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground/30"
+                style={{ animationDelay: `${0.6 + i * 0.15}s` }}
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Scroll Indicator */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 animate-in animate-delay-5">
+        <button
+          onClick={() => scrollToSection('about')}
+          className="flex flex-col items-center gap-2 text-muted-foreground/40 hover:text-primary transition-colors duration-300 cursor-pointer"
+        >
+          <span className="font-mono text-[10px] uppercase tracking-[0.3em]">Scroll</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="animate-float">
+            <path d="M7 13l5 5 5-5M7 6l5 5 5-5" />
+          </svg>
+        </button>
       </div>
     </section>
   );

@@ -2,7 +2,7 @@
 
 export const personalInfo = {
   name: "Mohamed Azimal Azimydeen",
-  jobTitle: "AI Automation & Control Systems Engineer",
+  jobTitle: "AI Automation Architect",
   tagline: "Control Engineer turned AI Automation Developer",
   email: "mohamedazimal27@gmail.com",
   phone: "+65 8921 3585",
@@ -88,31 +88,31 @@ export const experience = [
 export const services = [
   {
     id: 1,
-    title: "AI Automation Workflows",
-    description: "Design and deploy self-healing workflows using n8n and Python to automate complex business logic and reduce manual load.",
-    icon: "🤖",
-    technologies: ["n8n", "Python", "Webhooks", "APIs"]
+    title: "AI AUTOMATION WORKFLOWS",
+    description: "Design and deploy fault-tolerant LLM workflows and n8n automations that reduce manual operational work by 80–90%. Reliable automation replacing prototypes.",
+    icon: "01",
+    technologies: ["n8n", "Make.com", "Zapier", "Apps Script"]
   },
   {
     id: 2,
-    title: "RAG & Document Intelligence",
-    description: "Build secure, production-grade RAG systems for Document Q&A with strict user isolation and context-aware responses.",
-    icon: "📄",
-    technologies: ["LangChain", "ChromaDB", "OpenAI", "FastAPI"]
+    title: "RAG & DOCUMENT INTELLIGENCE",
+    description: "Multi-tenant RAG systems with JWT auth + vector metadata filtering for strict per-user data isolation. Full ingestion pipeline from chunking to layout-agnostic context.",
+    icon: "02",
+    technologies: ["LangChain", "ChromaDB", "FastAPI", "OpenAI"]
   },
   {
     id: 3,
-    title: "Voice AI Agents",
-    description: "Create conversational voice AI agents for booking, scheduling, and customer support with real-time data integration.",
-    icon: "🎙️",
-    technologies: ["Retell AI", "Make.com", "Airtable"]
+    title: "VOICE AI AGENTS",
+    description: "Conversational agents bridging voice and external logic. End-to-end handling with real-time availability sync and low-confidence escalation to human staff.",
+    icon: "03",
+    technologies: ["Retell AI", "Twilio", "Webhooks", "Airtable"]
   },
   {
     id: 4,
-    title: "Industrial Control Systems",
-    description: "Bridge the gap between OT and IT by integrating PLCs/HMIs with modern cloud APIs and data pipelines.",
-    icon: "🏭",
-    technologies: ["TwinCAT 3", "Allen-Bradley", "SCADA", "IoT"]
+    title: "SYSTEM ARCHITECTURE & INFRA",
+    description: "Building production-grade systems extending beyond simple scripts. Full-stack deployments, cloud API bridging, and secure asynchronous data processing.",
+    icon: "04",
+    technologies: ["Python", "Next.js", "Supabase", "REST APIs"]
   }
 ];
 
@@ -160,29 +160,44 @@ export const portfolioProjects = [
 ];
 
 export const skills = {
-  languages: [
-    { name: "Python", level: 95 },
-    { name: "JavaScript", level: 90 },
-    { name: "C++", level: 85 },
-    { name: "C#", level: 80 }
+  aiml: [
+    { name: "LangChain", level: 95 },
+    { name: "RAG", level: 95 },
+    { name: "OpenAI API", level: 90 },
+    { name: "ChromaDB", level: 90 },
+    { name: "Prompt Eng.", level: 95 },
+    { name: "Whisper", level: 85 },
+    { name: "Ollama", level: 85 },
+    { name: "Vector Search", level: 90 }
   ],
   automation: [
     { name: "n8n", level: 95 },
-    { name: "Google Sheets", level: 90 },
+    { name: "Make.com", level: 90 },
+    { name: "Zapier", level: 90 },
+    { name: "REST APIs", level: 95 },
+    { name: "Webhooks", level: 95 },
+    { name: "Google APIs", level: 85 },
     { name: "Apps Script", level: 85 },
-    { name: "Apify", level: 85 }
+    { name: "Airtable", level: 90 }
   ],
-  aiml: [
-    { name: "LangChain", level: 90 },
-    { name: "ChromaDB", level: 85 },
-    { name: "OpenAI API", level: 95 },
-    { name: "Prompt Engineering", level: 90 }
+  devinfra: [
+    { name: "Python", level: 95 },
+    { name: "FastAPI", level: 90 },
+    { name: "JavaScript", level: 90 },
+    { name: "Next.js 14", level: 85 },
+    { name: "Django", level: 80 },
+    { name: "C#", level: 80 },
+    { name: "Supabase", level: 85 },
+    { name: "Vercel", level: 85 },
+    { name: "Twilio", level: 80 },
+    { name: "Stripe", level: 80 }
   ],
   industrial: [
     { name: "TwinCAT 3", level: 90 },
     { name: "Allen-Bradley", level: 85 },
+    { name: "Weintek HMI", level: 85 },
     { name: "SCADA", level: 80 },
-    { name: "Robot Programming", level: 85 }
+    { name: "EtherCAT", level: 85 }
   ]
 };
 

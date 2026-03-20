@@ -8,7 +8,6 @@ import Experience from "./components/Experience";
 import Services from "./components/Services";
 import Portfolio from "./components/Portfolio";
 import Skills from "./components/Skills";
-import Blog from "./components/Blog";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import { Toaster } from "./components/ui/toaster";
@@ -23,7 +22,6 @@ const Home = () => {
       <Services />
       <Portfolio />
       <Skills />
-      <Blog />
       <Contact />
       <Footer />
       <Toaster />
